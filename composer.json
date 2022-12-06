@@ -1,5 +1,5 @@
 {
-    "name": "cob/maintenance",
+    "name": "cbk/maintenance",
     "version": "1.0.0",
     "description": "Adds admin login to shopware 6 maintenenace page.",
     "type": "shopware-platform-plugin",
