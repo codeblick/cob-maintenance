@@ -1,0 +1,34 @@
+{
+    "name": "cob/maintenance",
+    "version": "1.0.0",
+    "description": "Adds admin login to shopware 6 maintenenace page.",
+    "type": "shopware-platform-plugin",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "codeblick GmbH"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CobMaintenance\\": "src/"
+        }
+    },
+    "extra": {
+        "shopware-plugin-class": "CobMaintenance\\CobMaintenance",
+        "copyright": "(c) by codeblick GmbH",
+        "plugin-icon": "codeblick.png",
+        "label": {
+            "de-DE": "Wartungsmodus mit Passwortschutz",
+            "en-GB": "Maintenance mode with password protection"
+        },
+        "manufacturerLink": {
+            "de-DE": "https://www.codeblick.de",
+            "en-GB": "https://www.codeblick.de"
+        },
+        "supportLink": {
+            "de-DE": "https://www.codeblick.de",
+            "en-GB": "https://www.codeblick.de"
+        }
+    }
+}

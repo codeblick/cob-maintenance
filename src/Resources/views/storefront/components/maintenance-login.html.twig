@@ -1,0 +1,70 @@
+{% block maintenance_login %}
+	<div class="container mt-5">
+		<div class="mx-auto" style="max-width: 320px;">
+			{% block maintenance_login_form %}
+				<form id="maintenance_login_form" action="{{ path('frontend.maintenance.login') }}" method="post">
+					{% block maintenance_login_form_username %}
+						<div class="form-group">
+							<input type="text" name="username" class="form-control" placeholder="{{ 'cob-maintenance.login.username' | trans }}" required>
+						</div>
+					{% endblock %}
+
+					{% block maintenance_login_form_password %}
+						<div class="form-group">
+							<input type="password" name="password" class="form-control" placeholder="{{ 'cob-maintenance.login.password' | trans }}" required>
+						</div>
+					{% endblock %}
+
+					{% block maintenance_login_form_submit %}
+						<button type="submit" class="btn btn-primary w-100">
+							{{ 'cob-maintenance.login.submit' | trans }}
+						</button>
+					{% endblock %}
+
+                    {% block maintenance_login_form_error %}
+						<div id="maintenance_login_form_error" class="mt-2 text-danger" style="display: none;">
+                            {{ 'cob-maintenance.login.error' | trans }}
+                        </div>
+					{% endblock %}
+				</form>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block maintenance_login_js %}
+	<script>
+		const form = document.querySelector('#maintenance_login_form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const error = form.querySelector('#maintenance_login_form_error');
+            error.style.display = 'none';
+
+            const submit = form.querySelector('button');
+            submit.disabled = true;
+
+            const url = form.getAttribute('action');
+            const username = form.querySelector('[name="username"]').value;
+            const password = form.querySelector('[name="password"]').value;
+
+            const response = await fetch(url, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const json = await response.json();
+
+            if (json.success === false) {
+                error.style.display = 'block';
+                submit.disabled = false;
+            } else {
+                window.location.reload();
+            }
+        });
+	</script>
+{% endblock %}

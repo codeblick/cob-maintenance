@@ -1,0 +1,10 @@
+{
+    "cob-maintenance": {
+        "login": {
+            "username": "Username",
+            "password": "Password",
+            "submit": "Login",
+            "error": "An error has occurred. Please check your input."
+        }
+    }
+}

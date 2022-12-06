@@ -1,0 +1,6 @@
+{% sw_extends '@Storefront/storefront/page/error/error-maintenance.html.twig' %}
+
+{% block error_maintenance_main_content %}
+	{{ parent() }}
+	{% sw_include '@Storefront/storefront/components/maintenance-login.html.twig' %}
+{% endblock %}
