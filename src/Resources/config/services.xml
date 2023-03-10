@@ -5,6 +5,7 @@
         <service id="CobMaintenance\Controller\MaintenanceController" public="true">
             <argument type="service" id="Doctrine\DBAL\Connection" />
             <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheClearer" />
+            <argument type="service" id="sales_channel.repository"/>
 
             <call method="setContainer">
                 <argument type="service" id="service_container" />

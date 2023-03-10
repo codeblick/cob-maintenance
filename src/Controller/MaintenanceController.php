@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace CobMaintenance\Controller;
 
 use Doctrine\DBAL\Connection;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,12 +24,22 @@ class MaintenanceController extends StorefrontController
     private CacheClearer $cacheClearer;
 
     /**
+     * @var EntityRepositoryInterface
+     */
+    private $salesChannelRepository;
+
+    /**
      * @param Connection $connection
      */
-    public function __construct(Connection $connection, CacheClearer $cacheClearer)
+    public function __construct(
+        Connection $connection,
+        CacheClearer $cacheClearer,
+        EntityRepositoryInterface $salesChannelRepository
+    )
     {
         $this->connection = $connection;
         $this->cacheClearer = $cacheClearer;
+        $this->salesChannelRepository = $salesChannelRepository;
     }
 
     /**
@@ -63,12 +74,14 @@ class MaintenanceController extends StorefrontController
             return false;
         }
 
+
         $password = $this->connection->fetchOne(
             'SELECT `password` FROM user WHERE username = :username',
             [
                 'username' => $request->get('username')
             ]
         );
+
 
         if ($password === false || !password_verify($request->get('password'), $password)) {
             return false;
@@ -84,14 +97,16 @@ class MaintenanceController extends StorefrontController
      */
     private function addIpToAllowedList(Request $request, SalesChannelContext $context): bool
     {
-        return $this->connection->executeStatement(
-            'UPDATE sales_channel
-             SET maintenance_ip_whitelist = JSON_ARRAY_APPEND(maintenance_ip_whitelist, "$", :ipAddress)
-             WHERE id = UNHEX(:salesChannelId)',
+        $ipWhitelist = $context->getSalesChannel()->getMaintenanceIpWhitelist();
+        $ipWhitelist[] = $request->getClientIp();
+
+        $result = $this->salesChannelRepository->update([
             [
-                'ipAddress' => (string) $request->getClientIp(),
-                'salesChannelId' => $context->getSalesChannelId()
+                'id' => $context->getSalesChannelId(),
+                'maintenanceIpWhitelist' => $ipWhitelist
             ]
-        ) == 1;
+        ], $context->getContext());
+
+        return $result->getErrors() == [];
     }
 }
