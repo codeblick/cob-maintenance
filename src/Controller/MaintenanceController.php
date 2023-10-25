@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace CobMaintenance\Controller;
 
 use Doctrine\DBAL\Connection;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +24,7 @@ class MaintenanceController extends StorefrontController
     private CacheClearer $cacheClearer;
 
     /**
-     * @var EntityRepositoryInterface
+     * @var EntityRepository
      */
     private $salesChannelRepository;
 
@@ -34,7 +34,7 @@ class MaintenanceController extends StorefrontController
     public function __construct(
         Connection $connection,
         CacheClearer $cacheClearer,
-        EntityRepositoryInterface $salesChannelRepository
+        EntityRepository $salesChannelRepository
     )
     {
         $this->connection = $connection;
