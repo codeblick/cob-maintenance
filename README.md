@@ -1,14 +1,25 @@
 # Shopware Wartungsmodus Login mit automatischer IP-Freischaltung
 
-Dieses Projekt ist ein **Plugin für Shopware 6** und erweitert die **standardmäßige Wartungsmodus-Seite von Shopware** um ein Login-Formular.
+Dieses Projekt ist ein Plugin für Shopware 6 und erweitert die standardmäßige Wartungsmodus-Seite um ein Login-Formular.
+Wenn sich ein Benutzer mit gültigen Shopware-Admin-Zugangsdaten anmeldet, wird seine aktuelle IP-Adresse automatisch freigeschaltet.
 
-Wenn sich ein Benutzer mit gültigen **Shopware-Admin-Zugangsdaten** anmeldet, wird seine aktuelle IP-Adresse automatisch freigeschaltet. Danach kann die Seite trotz aktivem Wartungsmodus normal genutzt werden.
-
-## Ziel
+## Überblick
 
 Während Wartungsarbeiten sollen berechtigte Personen (z. B. Entwickler, Projektleitung, QA) weiterhin Zugriff auf den Shop haben, ohne den Wartungsmodus global zu deaktivieren.
+Das Plugin wurde ursprünglich für platform.sh-Projekte gebaut, da dort keine .htaccess-Passwörter für einen einfachen Wartungszugang gesetzt werden können.
 
-Das Plugin wurde ursprünglich für **platform.sh-Projekte** gebaut, da dort keine **.htaccess-Passwörter** für einen einfachen Wartungszugang gesetzt werden können.
+## Installation
+
+Installation über Composer:
+
+```bash
+composer require cbk/maintenance
+```
+
+## Veröffentlichung über Packagist
+
+Das Paket wird automatisch auf Packagist veröffentlicht bzw. aktualisiert.
+Bei Pushes auf `main` wird ein GitHub-Action-Workflow ausgeführt, der Packagist per API aktualisiert.
 
 ## Funktionen
 
@@ -40,4 +51,5 @@ Das Plugin wurde ursprünglich für **platform.sh-Projekte** gebaut, da dort kei
 
 ## Hinweis zur Anmeldung
 
-Die Anmeldung erfolgt **mit den normalen Shopware-Admin-Zugangsdaten**. Es ist **kein separates Wartungsmodus-Passwort** erforderlich.
+Die Anmeldung erfolgt mit den normalen Shopware-Admin-Zugangsdaten.
+Es ist kein separates Wartungsmodus-Passwort erforderlich.
